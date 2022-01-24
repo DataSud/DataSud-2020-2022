@@ -1,9 +1,0 @@
-{% load static %}
-<span class="title">
-  <a href="{{ HREF_WWW|default:"/" }}">{% if IDGO_SITE_HEADING_LOGO %}
-    {{ IDGO_SITE_HEADING_LOGO|safe }}{% else %}<img src="{% static "img/logo.png" %}" height="86px"/>{% endif %}
-  </a>
-  {{ IDGO_SITE_HEADING_SECOND_LOGO|default:""|safe }}
-  {{ IDGO_SITE_HEADING_TITLE|default:""|safe }}
-</span>
-{% include "idgo_admin/login_heading_shortcut.html" %}
