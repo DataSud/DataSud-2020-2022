@@ -1,0 +1,74 @@
+{% extends "idgo_admin/base.html" %}
+{% load bootstrap3 %}
+
+{% block nav %}{% endblock %}
+
+{% block breadcrumb_content %}
+<ol class="breadcrumb">
+  <li>
+    <span class="glyphicon glyphicon-home"></span>
+  </li>
+  <li class="active">
+    Commande de fichiers fonciers
+  </li>
+</ol>
+{% endblock breadcrumb_content %}
+
+{% block main_content %}
+{% for hidden_field in form.hidden_fields %}{{ hidden_field }}{% endfor %}{% if form.non_field_errors %}
+<div class="alert alert-danger" role="alert">{% for error in form.non_field_errors %}
+  {{ error }}{% endfor %}
+</div>{% endif %}
+<form names="order" action="" method="post" enctype="multipart/form-data" class="well">{% csrf_token %}
+  <h1>Commande de fichiers fonciers</h1>
+  <br>
+  <p>
+    Toute organisation partenaire <strong>{{ DEFAULT_PLATFORM_NAME }}</strong> a le droit à une commande de fichiers fonciers <abbr title="Mise À Jour des Informations Cadastrales">MAJIC III</abbr> par an.
+  </p>{% if IDGO_CADASTRE_ORDER_DOCUMENTATION %}
+  <p>
+    Avant de faire votre demande, veuillez prendre connaissance des conditions et des contraintes applicables sur cette donnée : <a href="{{ IDGO_CADASTRE_ORDER_DOCUMENTATION }}" target="_blank">Documentation</a>
+  </p>{% endif %}
+  <p>
+    Pour chaque demande, Les deux documents suivants doivent être fournis :
+    <ul>
+      <li>
+        Un acte d'engagement <abbr title="Direction Générale des Finances Publiques">DGFIP</abbr> rempli.
+        <a href="{{ IDGO_CADASTRE_ORDER_COMMITMENT_HREF }}" target="_blank">Télécharger l'acte d'engagement à remplir.</a>
+      </li>
+      <li>Un récipissé CNIL du <abbr title="Délégué à la Protection des Données">DPO</abbr> de l'organisation. Le DPO peut être désigné en ligne via <a href="{{ IDGO_CADASTRE_ORDER_DPO_HREF }}" target="_blank">ce lien.</a>
+      </li>
+    </ul>
+  </p>
+  <p>
+    Ces documents peuvent être téléversés via le formulaire ci-dessous.
+  </p>
+  <p>
+    Un e-mail de confirmation vous sera envoyé et votre demande sera traitée sous {{ IDGO_CADASTRE_ORDER_PROCESSING_TIME }} par l'administrateur <strong>{{ DEFAULT_PLATFORM_NAME }}</strong>.
+  </p>
+  <br>
+  <p>
+    <strong>Important :</strong> il ne peut y avoir qu'une seule commande, donc une seule livraison par organisme.
+  </p>
+  <br>
+  <div class="row">
+    <div class="col-md-8 col-lg-7">
+      {% bootstrap_field form.dpo_cnil %}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-8 col-lg-7">
+      {% bootstrap_field form.acte_engagement %}
+    </div>
+  </div>
+  <br />
+  <div class="buttons-on-the-right-side">
+    <button type="submit" class="btn btn-primary">Valider votre commande</button>
+  </div>
+  <hr />
+  <div class="row">
+    <div class="col-xs-12">
+      <small>* Les champs marqués d'un astérisque sont obligatoires.</small>
+    </div>
+  </div>
+</form>
+{% endblock main_content %}

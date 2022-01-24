@@ -1,0 +1,10 @@
+[{
+	"model": "idgo_admin.support",
+	"pk": 1,
+	"fields": {
+		"name": "IDGO",
+		"description": "Support technique IDGO",
+		"slug": "idgo",
+		"email": "support.technique@idgo.org"
+	}
+}]

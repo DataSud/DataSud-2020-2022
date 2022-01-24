@@ -1,0 +1,17 @@
+{% ckan_extends %}
+
+{% block scripts %}
+{{ super() }}
+{% resource 'idgotheme/js/main.js' %}
+{% resource 'idgotheme/js/menu.js' %}
+{% resource 'idgotheme/js/sort_facets.js' %}
+{% resource 'idgotheme/js/sort_data.js' %}
+{% resource 'idgotheme/js/matomo.js' %}
+{% endblock %}
+
+{% block styles %}
+{{ super() }}
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Roboto+Slab:300,400" rel="stylesheet">
+{% resource 'idgotheme/css/idgo_theme.css' %}
+{% endblock %}

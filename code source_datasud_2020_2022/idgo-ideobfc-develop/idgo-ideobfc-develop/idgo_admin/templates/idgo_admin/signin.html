@@ -1,0 +1,142 @@
+{% extends "idgo_admin/base.html" %}
+
+{% load bootstrap3 %}
+{% load static %}
+
+{% block header %}{% endblock header %}
+{% block nav %}{% endblock nav %}
+{% block breadcrumb %}{% endblock breadcrumb %}
+{% block main %}
+
+<div class="outer">
+  <div class="v-middle">
+    <div class="h-middle container-signin">{% if messages %}
+      <div class="container-message">{% for message in messages %}{% if message.tags == 'success' %}
+        <div name='message-tags' class="alert alert-success" role="alert">
+          <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>{{ message | escape | safe }}
+        </div>{% elif message.tags == 'error' %}
+        <div name='message-tags' class="alert alert-danger" role="alert">
+          <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>{{ message | escape | safe }}
+        </div>{% elif message.tags == 'info' %}
+        <div name='message-tags' class="alert alert-info" role="alert">
+          <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>{{ message | escape | safe }}
+        </div>{% endif %}{% endfor %}
+      </div>{% endif %}
+      <div class="panel">
+        <div class="panel-heading">
+          <div class="panel-heading-logo">{% if IDGO_SITE_HEADING_LOGO %}
+            {{ IDGO_SITE_HEADING_LOGO|safe }}{% else %}<img src="{% static "img/logo.png" %}" height="86px"/>{% endif %}
+          </div>
+          <h3 class="panel-title">Saisissez vos identifiants {{ DEFAULT_PLATFORM_NAME }}</h3>
+        </div>
+        <div class="panel-body">
+          <form id="signin" method="post" action="">
+            {% csrf_token %}
+            <div class="row">
+              <div class="col-xs-12">
+                {% bootstrap_field form.username show_label=False %}
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12">
+                {% bootstrap_field form.password show_label=False %}
+              </div>
+            </div>
+            {% if terms_and_conditions %}
+            <div class="row">
+              <div class="col-xs-12">
+                {% bootstrap_field form.terms_and_conditions %}
+              </div>
+            </div>
+            {% endif %}
+            <div class="row">
+              <div class="col-xs-7">
+                <div class="checkbox">
+                  <label><small><input name="remember-me" type="checkbox"/> Se souvenir de moi</small></label>
+                </div>
+              </div>
+              <div class="col-xs-5">
+                <button type="submit" class="btn btn-primary btn-block">Se connecter</button>
+              </div>
+            </div>
+            <div class="btn-group-vertical">
+              <a role="button" class="btn btn-xs btn-link" style="text-align: left;" href="{% url "idgo_admin:sign_up" %}">Pas encore de compte ?</a>
+              <a role="button" class="btn btn-xs btn-link" style="text-align: left;" href="{% url "idgo_admin:password_manager" process="forget" %}">Mot de passe oublié ?</a>
+            </div>
+          </form>
+        </div>
+      </div>
+      <small>{% include "idgo_admin/copyright.html" %}</small>
+    </div>
+  </div>
+</div>
+
+<script>
+$(function() {
+  $rememberMe = $('input[name="remember-me"]');
+  $userName = $('#id_username');
+  $password = $('#id_password');
+  if (localStorage.checkBoxValidation && localStorage.checkBoxValidation != '') {
+    $rememberMe.attr('checked', 'checked');
+    $userName.val(localStorage.userName);
+    $password.val(localStorage.password);
+  } else {
+    $rememberMe.removeAttr('checked');
+    $userName.val('');
+    $password.val('');
+  };
+  $('form#signin').on('submit', function() {
+    if ($rememberMe.is(':checked')) {
+      localStorage.userName = $userName.val();
+      localStorage.password = $password.val();
+      localStorage.checkBoxValidation = $rememberMe.val();
+    } else {
+      localStorage.userName = '';
+      localStorage.password = '';
+      localStorage.checkBoxValidation = '';
+    };
+  });
+  $('form').find('input').keypress(function(e) {
+    if (e.which == 10 || e.which == 13) {
+      $('form').submit();
+      return false;
+    };
+    return;
+  });
+});
+</script>
+
+<style>
+.container-signin {
+    width: 480px;
+}
+
+.container-signin .panel {
+    border-radius: 0;
+    border-left: 1px solid #ddd;
+    border-top: 1px solid #eee;
+    border-right: : 1px solid #ddd;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 5px;
+    -webkit-box-shadow: 0 2px 4px 0px rgba(0,0,0,.25);
+            box-shadow: 0 2px 4px 0px rgba(0,0,0,.25);
+}
+
+.container-signin .panel>.panel-heading {
+    border-bottom: none;
+    padding: 60px 60px 15px 60px;
+    background-color: #fff;
+}
+
+.container-signin .panel>.panel-heading>.panel-heading-logo {
+    margin: 0px 0px 30px 0px;
+    text-align: center;
+}
+
+.container-signin .panel>.panel-body {
+    padding: 15px 60px 60px 60px;
+}
+</style>
+
+{% endblock main %}
+{% block footer %}{% endblock footer %}

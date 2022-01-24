@@ -1,0 +1,21 @@
+{% load i18n admin_urls %}
+
+{% block object-tools-items %}
+
+  {% if has_auto_add_permission %}
+  <li>
+    {% url cl.opts|admin_urlname:'auto_add' as auto_add_url %}
+    <a href="{% add_preserved_filters auto_add_url is_popup to_field %}" class="addlink">
+            {% blocktrans with cl.opts.verbose_name as name %}Auto add {{ name }}{% endblocktrans %}
+    </a>
+      </li>
+      {% endif %}
+      {% if has_clear_all_permission and cl.result_count %}
+      <li>
+                      {% url cl.opts|admin_urlname:'clear_all' as clear_all_url %}
+    <a href="{% add_preserved_filters clear_all_url is_popup to_field %}" class="addlink">
+            {% blocktrans with cl.opts.verbose_name as name %}Clear all {{ name }}{% endblocktrans %}
+    </a>
+  </li>
+    {% endif %}
+  {% endblock %}
