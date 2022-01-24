@@ -1,0 +1,19 @@
+Cher {{ user_name }},
+
+Vous avez demandé l'accès sur {{ site_title }} à la ressource : {{ resource_name }}.
+La personne contactée a validé votre accès.
+
+Il est nécessaire au préalable de vous connecter à la plateforme {{ site_title }} à partir de cette adresse :
+{{ login_url|safe }}
+(saisir votre login et votre mot de passe)
+
+Ensuite, vous pouvez accéder à la ressource via ce lien : {{ resource_link }}.
+
+Cordialement,
+
+Administrateur {{ site_title }}
+
+
+Ceci est un message automatique. Merci de ne pas y répondre.
+
+Message envoyé par {{ site_title }} ({{ site_url }})
