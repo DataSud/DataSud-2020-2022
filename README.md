@@ -6,7 +6,7 @@ et ses extensions:
 idgo-cadastre-order/
 idgo-troubleshooting/
 
-Concernant les configurations de la plateforme DATASUD, les dépôts sont dans dans un groupe du même nom: https://git.neogeo.fr/datasud
+Concernant les configurations de la plateforme DATASUD, les dépôts sont dans le même dossier :
 
 Les statics du site admin pour mettre idgo au couleur de DATASUD : datasud_statics/idgo/
 Les fixtures d'initialisation de la base du backend django : datasud_data/idgo/
