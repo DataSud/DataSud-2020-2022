@@ -1,0 +1,34 @@
+{% ckan_extends %}
+
+{% block item %}
+<li class="media-organisation media-item">
+  {% block item_inner %}
+  {% block image %}
+  <div class="container-media-image">
+    <span></span>
+    <img src="{{ organization.image_display_url or h.url_for_static('/base/images/placeholder-organization.png') }}" alt="{{ organization.name }}" class="media-image">
+  </div>
+  {% endblock %}
+  {% block title %}
+  <h3 class="media-heading truncate fadetest">{{ organization.display_name }}</h3>
+  {% endblock %}
+  {% block description %}
+  {% if organization.description %}
+  <p class="organisation-description item-description truncate fadetest">{{ organization.description }}</p>
+  {% endif %}
+  {% endblock %}
+  {% block datasets %}
+  {% if organization.package_count %}
+  <strong class="count">{{ ungettext('{num} Dataset', '{num} Datasets', organization.package_count).format(num=organization.package_count) }}</strong>
+  {% else %}
+  <span class="count">Publication en cours</span>
+  {% endif %}
+  {% endblock %}
+  {% block link %}
+  <a href="{{ url }}" title="{{ _('View {organization_name}').format(organization_name=organization.display_name) }}" class="media-view">
+    <span>{{ _('View {organization_name}').format(organization_name=organization.display_name) }}</span>
+  </a>
+  {% endblock %}
+  {% endblock %}
+</li>
+{% endblock %}
